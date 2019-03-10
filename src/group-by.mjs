@@ -1,95 +1,79 @@
 import { iterableCurry } from './internal/iterable'
-import { Exchange } from './internal/queues'
+import { WeakExchange } from './internal/queues'
+import consume from './consume'
 
-function groupBy (getKey = (k) => k, iterable) {
-  const iterator = iterable[Symbol.iterator]()
+function groupBy (getKey = (k, i) => k, iterable) {
+  let iterator
+  let idx = 0
+  const weakExchange = new WeakExchange()
+  let consumer
 
-  let itemIndex = 0
-  let iterableCounter = 0
-  let noNewIterables = false
-  const exchange = new Exchange()
-  const consumer = exchange.getConsumer()
   let done = false
-  let currentItem
+  let item
+  let nGroups = 0
+  let groupsConsumed = false
 
-  // fetch new item from Iterator
-  // return the item and advance the
-  // main queue consumer
-  function fetch () {
-    const newItem = iterator.next()
-    if (newItem.done) {
-      done = true
-      return
-    }
-    exchange.push({ value: newItem.value, key: getKey(newItem.value, itemIndex++) })
-    currentItem = consumer.shift()
-  }
+  function fetch (expectedKey = {}) {
+    const { done: _done, value } = iterator.next()
 
-  // close the original iterator if possible
-  function returnIterator () {
-    if (noNewIterables && iterableCounter === 0) {
-      if (typeof iterator.return === 'function') iterator.return()
-    }
-  }
+    done = _done
 
-  // generate subgroup where adjacent items have the same key
-  // it picks up new item from the buffer. Every instance has
-  // its own independent consumer
-  function * generateGroup (firstItem, cons) {
-    try {
-      iterableCounter++
-      // the function generator is ready.
-      // *1*: I use this trick to ensure that finally is called
-      yield 'ready'
+    if (!done) {
+      const key = getKey(value, idx++)
+      item = { value, key }
 
-      yield firstItem.value
-
-      while (true) {
-        if (cons.isEmpty()) {
-          fetch()
-          if (done) return
-          continue
-        }
-        const nextItem = cons.shift()
-        if (nextItem.key !== firstItem.key) {
-          return // see *2*
-        }
-        yield nextItem.value
+      if (expectedKey !== key) {
+        consumer = weakExchange.spawnConsumer()
       }
-    } finally {
-      iterableCounter--
-      returnIterator()
+      weakExchange.push(item)
     }
   }
 
-  // generate group returning [key, subgroup]
-  // it always picks up new items from the Iterator (fetch)
+  function fetchGroup (key) {
+    while (!done && item.key === key) fetch(key)
+  }
+
+  function * generateGroup (key, consumer, idx) {
+    try {
+      yield '__ENSURE_FINALLY__'
+
+      do {
+        if (consumer.peek().key !== key) {
+          break
+        }
+
+        const cachedItem = consumer.shift()
+
+        if (consumer.isEmpty()) {
+          fetch(key)
+        }
+
+        yield cachedItem.value
+      } while (!done)
+    } finally {
+      if (groupsConsumed && !done && idx === nGroups && typeof iterator.return === 'function') {
+        iterator.return()
+      }
+    }
+  }
+
   function * generateGroups () {
-    // using an empty object as initial key:
-    // it is surely different from any possible key
-    let currentKey = {}
     try {
-      while (true) {
-        // I need to fetch a new item if currentItem is undefined (first time)
-        // or
-        // currentItem.key === currentKey that means that currentItem
-        // a fetch called in a subgroup returned an item of a different key. see *2*
-        if (!currentItem || currentItem.key === currentKey) {
-          fetch()
-        }
+      iterator = iterable[Symbol.iterator]()
 
-        if (done) return
+      consumer = weakExchange.spawnConsumer()
 
-        if (currentItem.key !== currentKey) {
-          currentKey = currentItem.key
-          const group = generateGroup(currentItem, consumer.clone())
-          group.next() // see *1*
-          yield [currentItem.key, group]
-        }
+      fetch()
+
+      while (!done) {
+        const { key } = item
+        const group = generateGroup(key, consumer, nGroups++)
+        group.next() // ensure finally
+        yield [key, group]
+        fetchGroup(key)
       }
     } finally {
-      noNewIterables = true
-      returnIterator()
+      groupsConsumed = true
     }
   }
 

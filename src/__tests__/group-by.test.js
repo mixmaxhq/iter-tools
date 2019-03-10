@@ -1,7 +1,7 @@
 /* eslint-env node, jest */
 const { groupBy, asyncGroupBy, asyncToArray } = require('..')
 
-describe('groupBy', function () {
+describe.only('groupBy', function () {
   it('groupBy main cursor', function () {
     const iter = groupBy('AAABBAACCCCD')
     let next
@@ -89,6 +89,24 @@ describe('groupBy', function () {
     next = iter.next()
     expect(next.value[0]).toBe('A')
     // ...
+  })
+
+  it('groupBy iterables can be consumed in an interleaved manner', function () {
+    const iter = groupBy('AABB')
+    let next
+    const As = iter.next()
+    expect(As.value[0]).toBe('A')
+    expect(As.value[1].next().value).toBe('A')
+
+    const Bs = iter.next()
+    expect(Bs.value[0]).toBe('B')
+    expect(Bs.value[1].next().value).toBe('B')
+
+    expect(As.value[1].next().value).toBe('A')
+    expect(As.value[1].next().done).toBe(true)
+
+    expect(Bs.value[1].next().value).toBe('B')
+    expect(Bs.value[1].next().done).toBe(true)
   })
 
   it('groupBy using destructuring', function () {

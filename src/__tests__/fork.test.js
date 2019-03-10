@@ -56,6 +56,12 @@ describe('fork', function () {
     )
   })
 
+  it('forks always start from the beginning of the iterable', function () {
+    const forks = fork(makeIterable())
+    expect(forks.next().value.next()).toBe(1)
+    expect(forks.next().value.next()).toBe(1)
+  })
+
   describe('source iterable cleanup', function () {
     it('happens when a fork is exhausted', function () {
       const oneTwoThree = new OneTwoThreeIterable()

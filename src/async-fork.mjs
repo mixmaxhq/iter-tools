@@ -32,13 +32,13 @@ export default function asyncFork (iterable) {
     }
   }
 
-  async function * generateFork (a) {
+  async function * generateFork (consumer) {
     try {
       iterableCounter++
-      yield 'ready' // the function generator is ready
+      yield '__ENSURE_FINALLY__'
       while (true) {
-        if (!a.isEmpty()) {
-          yield a.shift()
+        if (!consumer.isEmpty()) {
+          yield consumer.shift()
         } else if (done) {
           return doneValue
         } else {
@@ -53,15 +53,9 @@ export default function asyncFork (iterable) {
 
   function * generateForks () {
     try {
-      const consumer = exchange.getConsumer()
       while (true) {
-        const fork = generateFork(consumer.clone())
-        // this first call to "next" allows to initiate the function generator
-        // this ensures that "iterableCounter" will be always increased and decreased
-        //
-        // the default behaviour of a generator is that finally clause is only called
-        // if next was called at least once
-        fork.next()
+        const fork = generateFork(exchange.spawnConsumer())
+        fork.next() // ensure finally
         yield fork
       }
     } finally {

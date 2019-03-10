@@ -1,5 +1,5 @@
 import { asyncIterableCurry } from './internal/async-iterable'
-import { Exchange } from './internal/queues'
+import { createExchange } from './internal/queues'
 
 function asyncSplitBy (getKey = (k) => k, iterable) {
   const iterator = iterable[Symbol.asyncIterator]()
@@ -7,8 +7,7 @@ function asyncSplitBy (getKey = (k) => k, iterable) {
   let itemIndex = 0
   let iterableCounter = 0
   let noNewIterables = false
-  const exchange = new Exchange()
-  const consumer = exchange.getConsumer()
+  const { consumer, enqueue } = createExchange()
   let done = false
   let groups = []
 
@@ -27,7 +26,7 @@ function asyncSplitBy (getKey = (k) => k, iterable) {
       return
     }
     const key = getKey(newItem.value, itemIndex++)
-    exchange.push({ value: newItem.value, key })
+    enqueue({ value: newItem.value, key })
     if (key !== fetchKey) {
       fetchKey = key
       groups.push({ consumer: consumer.clone(), key })

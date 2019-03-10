@@ -1,89 +1,82 @@
 import { iterableCurry } from './internal/iterable'
-import { Exchange } from './internal/queues'
+import { WeakExchange } from './internal/queues'
+import consume from './consume'
 
-function splitBy (getKey = (k) => k, iterable) {
-  const iterator = iterable[Symbol.iterator]()
+const SPLIT = {}
 
-  let itemIndex = 0
-  let iterableCounter = 0
-  let noNewIterables = false
-  const exchange = new Exchange()
-  const consumer = exchange.getConsumer()
+function * splitAll (iterable) {
+  for (const item of iterable) {
+    yield [item]
+  }
+}
+
+function splitBy (predicate, iterable) {
+  if (!predicate) {
+    return splitAll(iterable)
+  }
+
+  let iterator
+  let idx = 0
+  const weakExchange = new WeakExchange()
+
   let done = false
-  let groups = []
+  let nGroups = 0
+  let groupsConsumed = false
+  let lastGroupConsumed
 
-  // using an empty object as initial key:
-  // it is surely different from any possible key
-  let fetchKey = {}
-
-  // fetch new item from Iterator
-  // return the item and advance the
-  // main queue consumer
-  // it also clone the head of the queue when the key changes
   function fetch () {
-    const newItem = iterator.next()
-    if (newItem.done) {
-      done = true
-      return
+    const { done: _done, value } = iterator.next()
+
+    const newItem = {
+      done: (done = _done),
+      value: predicate(value, idx++) ? SPLIT : value
     }
-    const key = getKey(newItem.value, itemIndex++)
-    exchange.push({ value: newItem.value, key })
-    if (key !== fetchKey) {
-      fetchKey = key
-      groups.push({ consumer: consumer.clone(), key })
-    }
-    consumer.shift() // main consumer forllows the queue
+
+    weakExchange.push(newItem)
+
+    return newItem
   }
 
-  // close the original iterator if possible
-  function returnIterator () {
-    if (noNewIterables && iterableCounter === 0) {
-      if (typeof iterator.return === 'function') iterator.return()
-    }
+  function fetchGroup () {
+    let item
+    while (!item || !(item.done || item.value === SPLIT)) item = fetch()
   }
 
-  // generate subgroup where adjacent items have the same key
-  // it picks up new item from the buffer. Every instance has
-  // its own independent consumer
-  function * generateGroup (groupNumber) {
+  function * generateGroup (consumer, idx) {
     try {
-      iterableCounter++
-      // the function generator is ready.
-      // *1*: I use this trick to ensure that finally is called
-      yield 'ready'
+      yield '__ENSURE_FINALLY__'
 
       while (true) {
-        const group = groups[groupNumber]
-        if (!group || group.consumer.isEmpty()) {
-          if (done) return
-          fetch()
-          continue
-        }
-        const nextItem = group.consumer.shift()
-        if (nextItem.key !== group.key) {
-          return // see *2*
-        }
-        yield nextItem.value
+        if (consumer.isEmpty()) fetch()
+
+        const item = consumer.shift()
+        if (item.value === SPLIT || item.done) break
+
+        yield item.value
       }
+
+      lastGroupConsumed = true
     } finally {
-      groups[groupNumber] = undefined
-      iterableCounter--
-      returnIterator()
+      if (groupsConsumed && !done && idx === nGroups && typeof iterator.return === 'function') {
+        iterator.return()
+      }
     }
   }
 
-  // generate group returning
   function * generateGroups () {
-    let groupCounter = 0
     try {
-      while (true) {
-        const group = generateGroup(groupCounter++)
-        group.next() // see *1*
+      iterator = iterable[Symbol.iterator]()
+
+      do {
+        const consumer = weakExchange.spawnConsumer()
+        lastGroupConsumed = false
+        const group = generateGroup(consumer, nGroups++)
+        group.next() // ensure finally
         yield group
-      }
+        if (!lastGroupConsumed) fetchGroup()
+      } while (!done)
     } finally {
-      noNewIterables = true
-      returnIterator()
+      groupsConsumed = true
     }
   }
 

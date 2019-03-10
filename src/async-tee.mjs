@@ -51,8 +51,8 @@ export default function tee (iterable, number) {
       }
     }
   }
-  const consumer = exchange.getConsumer()
-  const array = Array.from(map(() => teeGen(consumer.clone()), range(number)))
+  const array = Array.from(map(() => teeGen(exchange.spawnConsumer()), range(number)))
+  exchange.noMoreConsumers()
   return array
 }
 

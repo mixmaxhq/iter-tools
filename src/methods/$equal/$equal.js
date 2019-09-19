@@ -1,8 +1,8 @@
 import { $isAsync, $async, $await } from '../../../generate/async.macro';
-import { $iterableCurry } from '../../internal/$iterable';
-import { $zipAll } from '../$zip-all/$zip-all';
-import { asyncWrap } from '../$wrap/async-wrap';
-import { simpleSlice } from '../$slice/slice';
+import { $iterableCurry } from '../../internal/$iterable.js';
+import { $zipAll } from '../$zip-all/$zip-all.js';
+import { asyncWrap } from '../$wrap/async-wrap.js';
+import { simpleSlice } from '../$slice/slice.js';
 
 const noItem = {};
 const zipAllConfig = { filler: noItem };

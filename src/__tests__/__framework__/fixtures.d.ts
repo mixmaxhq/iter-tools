@@ -1,5 +1,5 @@
-import { GeneratorIterator } from '../../internal/iterable';
-import { AsyncGeneratorIterator } from '../../internal/async-iterable';
+import { GeneratorIterator } from '../../internal/iterable.js';
+import { AsyncGeneratorIterator } from '../../internal/async-iterable.js';
 
 export declare class OneTwoThreeIterable {
   next(): IteratorResult<number>;

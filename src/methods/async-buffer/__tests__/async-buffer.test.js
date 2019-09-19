@@ -1,6 +1,6 @@
 import { asyncBuffer, asyncToArray } from '../../..';
-import { AsyncIterable } from '../../../internal/async-iterable';
-import delay from '../../../internal/delay';
+import { AsyncIterable } from '../../../internal/async-iterable.js';
+import delay from '../../../internal/delay.js';
 
 function intermittent(): AsyncIterable<number> {
   const sequence = [{ delay: 0, value: 0 }, { delay: 400, value: 1 }, { delay: 0, value: 2 }];

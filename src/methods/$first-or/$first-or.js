@@ -1,6 +1,6 @@
 import { $async, $await, $iteratorSymbol } from '../../../generate/async.macro';
 
-import { $ensureIterable, $iterableCurry } from '../../internal/$iterable';
+import { $ensureIterable, $iterableCurry } from '../../internal/$iterable.js';
 
 $async;
 export function $firstOr(iterable, whenEmpty) {

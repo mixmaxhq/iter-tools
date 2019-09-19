@@ -1,5 +1,5 @@
-import { $iterableCurry } from '../../internal/$iterable';
-import $internalStartsWith from '../$starts-with_/$starts-with';
+import { $iterableCurry } from '../../internal/$iterable.js';
+import $internalStartsWith from '../$starts-with_/$starts-with.js';
 
 const config = { any: false, subseq: true };
 

@@ -1,5 +1,5 @@
 import { $async, $await } from '../../../generate/async.macro';
-import { $wrapWithMethodIterable } from '../../internal/$iterable';
+import { $wrapWithMethodIterable } from '../../internal/$iterable.js';
 
 $async;
 export function* $execute(func, ...args) {

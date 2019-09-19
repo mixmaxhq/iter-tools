@@ -1,5 +1,5 @@
-import { $iterableCurry } from '../../internal/$iterable';
-import $internalJoinWith from '../$join-with_/$join-with';
+import { $iterableCurry } from '../../internal/$iterable.js';
+import $internalJoinWith from '../$join-with_/$join-with.js';
 
 const config = { subseq: true };
 

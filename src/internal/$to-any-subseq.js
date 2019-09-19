@@ -1,8 +1,8 @@
 import { $async, $await } from '../../generate/async.macro';
 
-import { toArray as syncToArray } from '../methods/$to-array/to-array';
-import { $toArray } from '../methods/$to-array/$to-array';
-import { $map } from '../methods/$map/$map';
+import { toArray as syncToArray } from '../methods/$to-array/to-array.js';
+import { $toArray } from '../methods/$to-array/$to-array.js';
+import { $map } from '../methods/$map/$map.js';
 
 $async;
 function toAnySubseq({ any, subseq }, value) {

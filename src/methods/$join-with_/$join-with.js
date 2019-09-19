@@ -1,6 +1,6 @@
 import { $async, $await } from '../../../generate/async.macro';
 
-import toArray from '../$to-array/to-array';
+import toArray from '../$to-array/to-array.js';
 
 $async;
 function* $joinWith(iterable, { subseq }, on) {

@@ -1,5 +1,5 @@
-import { $iterableCurry } from '../../internal/$iterable';
-import $internalSplitOn from '../$split-on_/$split-on';
+import { $iterableCurry } from '../../internal/$iterable.js';
+import $internalSplitOn from '../$split-on_/$split-on.js';
 
 const config = { any: false, subseq: false };
 

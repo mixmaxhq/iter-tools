@@ -1,6 +1,6 @@
 import { $async, $await, $iteratorSymbol } from '../../../generate/async.macro';
-import { $iterableCurry } from '../../internal/$iterable';
-import defaultCompare from '../../internal/compare';
+import { $iterableCurry } from '../../internal/$iterable.js';
+import defaultCompare from '../../internal/compare.js';
 
 $async;
 export function $isSorted(iterable, comparator = defaultCompare) {

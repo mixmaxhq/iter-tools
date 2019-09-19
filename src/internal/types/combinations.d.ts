@@ -1,6 +1,6 @@
 import { Repeat } from 'typescript-tuple';
 
-import { InRange8 } from './utility';
+import { InRange8 } from './utility.js';
 
 type CombinationsPermutationsByIterable<Iter extends Iterable<any>> = Iter extends Iterable<infer T>
   ? Iter extends T[]

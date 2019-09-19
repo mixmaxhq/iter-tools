@@ -1,5 +1,5 @@
 import { $async, $await } from '../../../generate/async.macro';
-import { $ensureIterable } from '../../internal/$iterable';
+import { $ensureIterable } from '../../internal/$iterable.js';
 
 $async;
 export function $toArray(iterable) {

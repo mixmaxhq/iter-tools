@@ -27,7 +27,7 @@ module.exports = {
   ].concat(
     process.env.CI
       ? makeProject({
-          name: 'es2018',
+          name: 'es',
         })
       : [],
   ),

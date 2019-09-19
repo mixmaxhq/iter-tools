@@ -1,7 +1,7 @@
-import { $Promise, $InputIterable } from '../../../internal/$iterable';
+import { $Promise, $InputIterable } from '../../../internal/$iterable.js';
 import { $async, $await } from '../../../../generate/async.macro';
 import { $reduce, range } from '../../..';
-import { $OneTwoThreeIterable } from '../../../__tests__/__framework__/fixtures';
+import { $OneTwoThreeIterable } from '../../../__tests__/__framework__/fixtures.js';
 
 describe($async`reduce`, () => {
   it(

@@ -8,9 +8,9 @@
 
 /* eslint-disable no-unused-vars,import/no-duplicates */
 
-import { Promise, InputIterable } from '../../../internal/iterable';
+import { Promise, InputIterable } from '../../../internal/iterable.js';
 import { reduce, range } from '../../..';
-import { OneTwoThreeIterable } from '../../../__tests__/__framework__/fixtures';
+import { OneTwoThreeIterable } from '../../../__tests__/__framework__/fixtures.js';
 describe('reduce', () => {
   it('sums an array', () => {
     expect(reduce((acc = 0, x) => acc + x, [0, 1, 2, 3])).toBe(6);

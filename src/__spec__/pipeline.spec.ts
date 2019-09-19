@@ -1,5 +1,5 @@
 import assert from 'static-type-assert';
-import { GeneratorIterator } from '../internal/iterable';
+import { GeneratorIterator } from '../internal/iterable.js';
 import { execPipe, map, filter } from '..';
 
 declare var Ø: never;

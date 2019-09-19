@@ -8,7 +8,7 @@
 
 /* eslint-disable no-unused-vars,import/no-duplicates */
 
-import { ensureIterable, isIterable, iterableCurry } from '../iterable';
+import { ensureIterable, isIterable, iterableCurry } from '../iterable.js';
 import { range, toArray } from '../..';
 describe('ensureIterable', () => {
   it('works with iterables', () => {

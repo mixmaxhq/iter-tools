@@ -1,9 +1,9 @@
 import { $async, $await, $iteratorSymbol } from '../../../generate/async.macro';
-import { WeakExchange } from '../../internal/queues';
+import { WeakExchange } from '../../internal/queues.js';
 
-import { $cursor } from '../$cursor/$cursor';
-import $toAnySubseq from '../../internal/$to-any-subseq';
-import internalStartsWith from '../$starts-with_/iterable-starts-with';
+import { $cursor } from '../$cursor/$cursor.js';
+import $toAnySubseq from '../../internal/$to-any-subseq.js';
+import internalStartsWith from '../$starts-with_/iterable-starts-with.js';
 
 const startsWithConfig = { any: false, subseq: true };
 

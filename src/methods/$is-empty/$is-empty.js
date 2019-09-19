@@ -1,5 +1,5 @@
 import { $async, $await } from '../../../generate/async.macro';
-import { $firstOr } from '../$first-or/$first-or';
+import { $firstOr } from '../$first-or/$first-or.js';
 
 const NONE = {};
 

@@ -1,8 +1,8 @@
 import { $async, $await } from '../../../generate/async.macro';
 
-import { $iterableCurry } from '../../internal/$iterable';
+import { $iterableCurry } from '../../internal/$iterable.js';
 
-import { $interleave } from '../$interleave/$interleave';
+import { $interleave } from '../$interleave/$interleave.js';
 
 $async;
 function* $byPosition({ start, step }, canTakeAny, ...buffers) {

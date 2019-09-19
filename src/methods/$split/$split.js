@@ -1,4 +1,4 @@
-import { $map } from '../$map/$map';
+import { $map } from '../$map/$map.js';
 
 function* iterableOf(...items) {
   yield* items;

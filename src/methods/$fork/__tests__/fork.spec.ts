@@ -7,7 +7,7 @@
  */
 
 import { fork, map, toArray } from '../../..';
-import { OneTwoThreeIterable } from '../../../__tests__/__framework__/fixtures';
+import { OneTwoThreeIterable } from '../../../__tests__/__framework__/fixtures.js';
 
 function* _makeIterable() {
   yield 1;

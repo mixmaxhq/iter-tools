@@ -8,9 +8,9 @@
 
 /* eslint-disable no-unused-vars,import/no-duplicates */
 
-import { AsyncPromise, AsyncInputIterable } from '../../../internal/async-iterable';
+import { AsyncPromise, AsyncInputIterable } from '../../../internal/async-iterable.js';
 import { asyncReduce, range } from '../../..';
-import { AsyncOneTwoThreeIterable } from '../../../__tests__/__framework__/fixtures';
+import { AsyncOneTwoThreeIterable } from '../../../__tests__/__framework__/fixtures.js';
 describe('asyncReduce', () => {
   it('sums an array', async () => {
     expect(await asyncReduce((acc = 0, x) => acc + x, [0, 1, 2, 3])).toBe(6);

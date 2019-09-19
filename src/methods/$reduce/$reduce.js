@@ -1,6 +1,6 @@
 import { $iteratorSymbol, $async, $await } from '../../../generate/async.macro';
 
-import { $iterableCurry } from '../../internal/$iterable';
+import { $iterableCurry } from '../../internal/$iterable.js';
 
 $async;
 export function $reduce(iterable, initial, func) {

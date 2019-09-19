@@ -7,7 +7,7 @@
  */
 
 import { zip, toArray, slice, range } from '../../..';
-import { OneTwoThreeIterable } from '../../../__tests__/__framework__/fixtures';
+import { OneTwoThreeIterable } from '../../../__tests__/__framework__/fixtures.js';
 describe('zip', () => {
   it('zips', () => {
     const iter = zip([1, 2, 3], [4, 5, 6], [7, 8, 9]);

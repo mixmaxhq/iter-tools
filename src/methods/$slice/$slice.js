@@ -1,7 +1,7 @@
 import { $async, $await } from '../../../generate/async.macro';
 
-import CircularBuffer from '../../internal/circular-buffer';
-import { $iterableCurry } from '../../internal/$iterable';
+import CircularBuffer from '../../internal/circular-buffer.js';
+import { $iterableCurry } from '../../internal/$iterable.js';
 
 $async;
 function bufferedSlice(iterable, start, end, step) {

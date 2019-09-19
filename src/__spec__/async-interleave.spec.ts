@@ -8,7 +8,7 @@
 
 import assert from 'static-type-assert';
 import { AsyncGeneratorIterator, AsyncPromise } from '../internal/async-iterable';
-import AsyncInterleaveBuffer from '../methods/$interleave/internal/async-buffer';
+import AsyncInterleaveBuffer from '../methods/$interleave/internal/async-buffer.js';
 import { asyncInterleave } from '..'; // Without options
 // ############
 

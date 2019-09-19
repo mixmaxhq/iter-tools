@@ -6,7 +6,7 @@
  * More information can be found in CONTRIBUTING.md
  */
 
-import { Promise, Iterable } from '../../../internal/iterable';
+import { Promise, Iterable } from '../../../internal/iterable.js';
 import { interleave, InterleaveBuffer, toArray } from '../../..';
 describe('interleave', () => {
   const a = [1, 2, 3];

@@ -1,6 +1,6 @@
 import { $async, $await, $iteratorSymbol } from '../../../generate/async.macro';
-import { $iterableCurry } from '../../internal/$iterable';
-import { WeakExchange } from '../../internal/queues';
+import { $iterableCurry } from '../../internal/$iterable.js';
+import { WeakExchange } from '../../internal/queues.js';
 
 $async;
 function fetch(state, getKey, expectedKey = {}) {

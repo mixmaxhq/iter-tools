@@ -1,9 +1,9 @@
 import { $isAsync, $async, $await } from '../../../generate/async.macro';
 
-import $toAnySubseq from '../../internal/$to-any-subseq';
-import { $zipAll } from '../$zip-all/$zip-all';
-import { asyncWrap } from '../$wrap/async-wrap';
-import { simpleSlice } from '../$slice/slice';
+import $toAnySubseq from '../../internal/$to-any-subseq.js';
+import { $zipAll } from '../$zip-all/$zip-all.js';
+import { asyncWrap } from '../$wrap/async-wrap.js';
+import { simpleSlice } from '../$slice/slice.js';
 
 const noItem = {};
 const zipAllConfig = { filler: noItem };

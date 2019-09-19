@@ -9,7 +9,7 @@
 /* eslint-disable no-unused-vars,import/no-duplicates */
 
 import { asyncZipAll, asyncToArray, asyncSlice, range } from '../../..';
-import { AsyncOneTwoThreeIterable } from '../../../__tests__/__framework__/fixtures';
+import { AsyncOneTwoThreeIterable } from '../../../__tests__/__framework__/fixtures.js';
 describe('asyncZipAll', () => {
   it('zips', async () => {
     const iter = asyncZipAll([1, 2, 3], [4, 5, 6], [7, 8, 9]);

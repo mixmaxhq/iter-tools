@@ -1,5 +1,5 @@
-import { $iterableCurry } from '../../internal/$iterable';
-import $internalIncludes from '../$includes_/$includes';
+import { $iterableCurry } from '../../internal/$iterable.js';
+import $internalIncludes from '../$includes_/$includes.js';
 
 const config = { any: true, subseq: true };
 

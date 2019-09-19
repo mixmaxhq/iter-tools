@@ -1,6 +1,10 @@
 /src
 /coverage
 /benchmarks
+/generate
+/generate-yo
+/transformers
+/es2018
 .nvmrc
 .travis.yml
 .editorconfig

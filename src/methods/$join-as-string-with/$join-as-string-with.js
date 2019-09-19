@@ -1,5 +1,5 @@
 import { $async, $await } from '../../../generate/async.macro';
-import { $iterableCurry } from '../../internal/$iterable';
+import { $iterableCurry } from '../../internal/$iterable.js';
 
 $async;
 function $joinAsStringWith(strings, separator) {

@@ -6,7 +6,7 @@
  * More information can be found in CONTRIBUTING.md
  */
 
-import delay from '../../../internal/delay';
+import delay from '../../../internal/delay.js';
 import { asyncMapParallel, asyncToArray, range } from '../../..';
 describe('asyncMapParallel', () => {
   it('returns mapped iterable', async () => {

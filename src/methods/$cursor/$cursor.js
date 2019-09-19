@@ -1,9 +1,9 @@
 import { $async, $await } from '../../../generate/async.macro';
 
-import { $iterableCurry } from '../../internal/$iterable';
-import CircularBuffer from '../../internal/circular-buffer';
-import { $concat } from '../$concat/$concat';
-import { repeat } from '../repeat/repeat';
+import { $iterableCurry } from '../../internal/$iterable.js';
+import CircularBuffer from '../../internal/circular-buffer.js';
+import { $concat } from '../$concat/$concat.js';
+import { repeat } from '../repeat/repeat.js';
 
 $async;
 export function* $cursor(iterable, { size, trailing, filler }) {

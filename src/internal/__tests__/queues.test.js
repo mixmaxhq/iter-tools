@@ -1,4 +1,4 @@
-import { Queue, Exchange } from '../queues';
+import { Queue, Exchange } from '../queues.js';
 
 describe('Queue', () => {
   it('queues', () => {

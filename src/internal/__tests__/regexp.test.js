@@ -1,4 +1,4 @@
-import { cloneRegexp, isRegExp } from '../regexp';
+import { cloneRegexp, isRegExp } from '../regexp.js';
 
 describe('cloneRegexp', () => {
   it('clones', () => {

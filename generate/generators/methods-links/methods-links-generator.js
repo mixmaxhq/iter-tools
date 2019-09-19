@@ -1,5 +1,5 @@
 const { dirname, basename, relative, join, normalize } = require('path');
-const camelcase = require('camelcase');
+// const camelcase = require('camelcase');
 const completeExtname = require('path-complete-extname');
 
 const BaseGenerator = require('../base-generator');
@@ -10,7 +10,7 @@ class MethodsLinksGenerator extends BaseGenerator {
   constructor(options) {
     super(options);
 
-    this.glob = ['src/methods/*/[^$]*.{mjs,d.ts}'];
+    this.glob = ['src/methods/*/[^$]*.{js,d.ts}'];
     this.ignored = ['src/methods/*_/**'];
   }
 
@@ -26,11 +26,12 @@ class MethodsLinksGenerator extends BaseGenerator {
     let generatedFrom = relative(dirname(destPath), implPath);
 
     const extName = completeExtname(implPath);
-    const moduleName = basename(implPath, extName);
-    const methodName = camelcase(basename(implPath, extName));
+    const moduleName = basename(implPath, extName) + (extName === '.d.ts' ? '' : extName);
+    // const methodName = camelcase(basename(implPath, extName));
     const methodDirName = basename(dirname(implPath));
 
-    const impl = `import ${methodName} from './methods/${methodDirName}/${moduleName}';\n\nexport default ${methodName};`;
+    // const impl = `import ${methodName} from './methods/${methodDirName}/${moduleName}';\n\nexport default ${methodName};`;
+    const impl = `module.exports = require('./methods/${methodDirName}/${moduleName}');`;
 
     try {
       content = generatedFunctionFile(impl, generatedFrom);

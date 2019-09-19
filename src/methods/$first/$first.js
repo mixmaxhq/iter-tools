@@ -1,4 +1,4 @@
-import { $firstOr } from '../$first-or/$first-or';
+import { $firstOr } from '../$first-or/$first-or.js';
 
 export function $first(iterable) {
   return $firstOr(iterable, undefined);

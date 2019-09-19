@@ -1,6 +1,6 @@
 import { $isAsync, $async, $iteratorSymbol } from '../../../generate/async.macro';
-import { $iterableCurry } from '../../internal/$iterable';
-import { $groupBy } from '../$group-by/$group-by';
+import { $iterableCurry } from '../../internal/$iterable.js';
+import { $groupBy } from '../$group-by/$group-by.js';
 
 $async;
 function* empty() {}

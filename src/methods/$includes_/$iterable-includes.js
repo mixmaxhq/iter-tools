@@ -1,8 +1,8 @@
 import { $async, $await } from '../../../generate/async.macro';
 
-import { $cursor } from '../$cursor/$cursor';
-import $toAnySubseq from '../../internal/$to-any-subseq';
-import startsWith from '../$starts-with_/iterable-starts-with';
+import { $cursor } from '../$cursor/$cursor.js';
+import $toAnySubseq from '../../internal/$to-any-subseq.js';
+import startsWith from '../$starts-with_/iterable-starts-with.js';
 
 const startsWithConfig = { any: true, subseq: true };
 

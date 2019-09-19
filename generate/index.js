@@ -3,12 +3,14 @@ const camelize = require('camelize');
 
 const MultiGenerator = require('./generator/multi-generator');
 const MethodsGenerator = require('./generators/methods');
-const MethodsLinksGenerator = require('./generators/methods-links');
+// const MethodsLinksGenerator = require('./generators/methods-links');
+const IndexJsGenerator = require('./generators/index-js');
+const IndexTsGenerator = require('./generators/index-ts');
 const TestsGenerator = require('./generators/tests');
 const TypesGenerator = require('./generators/types');
 const TypeTestsGenerator = require('./generators/type-tests');
 const ApiMDGenerator = require('./generators/api-md');
-const MonolithicGenerator = require('./generators/monolithic');
+const GitattributesGenerator = require('./generators/gitattributes');
 
 const argv = camelize(
   parseArgs(process.argv.slice(2), {
@@ -40,12 +42,14 @@ if (argv.help) {
   const generator = new MultiGenerator(
     [
       MethodsGenerator,
-      MethodsLinksGenerator,
+      //MethodsLinksGenerator,
+      IndexJsGenerator,
+      IndexTsGenerator,
       TestsGenerator,
       TypesGenerator,
       TypeTestsGenerator,
       ApiMDGenerator,
-      MonolithicGenerator,
+      GitattributesGenerator,
     ],
     {
       ...argv,

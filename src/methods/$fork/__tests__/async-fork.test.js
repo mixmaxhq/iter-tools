@@ -9,7 +9,7 @@
 /* eslint-disable no-unused-vars,import/no-duplicates */
 
 import { asyncFork, asyncMap, asyncToArray } from '../../..';
-import { AsyncOneTwoThreeIterable } from '../../../__tests__/__framework__/fixtures';
+import { AsyncOneTwoThreeIterable } from '../../../__tests__/__framework__/fixtures.js';
 
 function* _makeIterable() {
   yield 1;

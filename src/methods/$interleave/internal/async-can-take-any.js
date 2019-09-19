@@ -1,5 +1,5 @@
-import { map } from '../../$map/map';
-import raceTo from './race-to';
+import { map } from '../../$map/map.js';
+import raceTo from './race-to.js';
 
 const makeCanTakeAny = buffers => () => {
   return raceTo(

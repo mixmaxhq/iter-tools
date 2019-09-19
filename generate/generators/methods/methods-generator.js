@@ -14,7 +14,7 @@ class MethodsGenerator extends BaseAsyncGenerator {
   }
 
   getDestName(basename) {
-    return `${basename.slice(1)}.mjs`;
+    return `${basename.slice(1)}.js`;
   }
 
   getBabelConfigPath() {

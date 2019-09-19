@@ -8,7 +8,7 @@
 
 /* eslint-disable no-unused-vars,import/no-duplicates */
 
-import { AsyncPromise, AsyncIterable } from '../../../internal/async-iterable';
+import { AsyncPromise, AsyncIterable } from '../../../internal/async-iterable.js';
 import { asyncInterleave, AsyncInterleaveBuffer, asyncToArray } from '../../..';
 describe('asyncInterleave', () => {
   const a = [1, 2, 3];

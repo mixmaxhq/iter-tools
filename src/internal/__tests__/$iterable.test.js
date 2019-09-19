@@ -1,6 +1,6 @@
 import { $isAsync, $async, $await } from '../../../generate/async.macro';
-import { asyncify } from '../async-iterable';
-import { $ensureIterable, $isIterable, $iterableCurry } from '../$iterable';
+import { asyncify } from '../async-iterable.js';
+import { $ensureIterable, $isIterable, $iterableCurry } from '../$iterable.js';
 import { range, $toArray } from '../..';
 
 describe($async`ensureIterable`, () => {
